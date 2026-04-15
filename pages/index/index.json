@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "AI写真馆",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": false,
+  "usingComponents": {}
+}

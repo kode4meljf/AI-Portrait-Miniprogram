@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="order-list" wx:if="{{orders.length > 0}}">
+    <view class="order-item" wx:for="{{orders}}" wx:key="id">
+      <view class="order-header">
+        <text class="order-no">订单号：{{item.orderNo}}</text>
+        <text class="order-status status-{{item.status}}">{{statusMap[item.status]}}</text>
+      </view>
+      <view class="order-body">
+        <image class="order-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+        <view class="order-info">
+          <text class="order-style">{{item.styleName}}</text>
+          <text class="order-frame">相框：{{item.frameName}}</text>
+          <text class="order-price">¥{{item.totalPrice}}</text>
+        </view>
+      </view>
+      <view class="order-footer" wx:if="{{item.estimatedCompleteTime}}">
+        <text>预计完成：{{item.estimatedCompleteTime}}</text>
+      </view>
+      <view class="order-footer" wx:if="{{item.logisticsNo}}">
+        <text>物流单号：{{item.logisticsNo}}</text>
+      </view>
+      <button class="detail-btn" bindtap="onViewDetail" data-id="{{item.id}}">查看详情</button>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && orders.length === 0}}">
+    <image src="/assets/images/empty-order.png"></image>
+    <text>暂无订单</text>
+  </view>
+
+  <view class="load-more" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+</view>

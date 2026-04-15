@@ -1,0 +1,10 @@
+node_modules/
+miniprogram_npm/
+.DS_Store
+*.log
+*.bak
+package-lock.json
+*.local
+.cloudfunction*
+devtools/
+__ACC__TEST__

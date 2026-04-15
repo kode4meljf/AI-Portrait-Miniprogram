@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="header"><text class="title">AI写真已生成</text><text class="subtitle">点击选择您最满意的一张</text></view>
+  <view class="grid" wx:if="{{!loading && images.length > 0}}">
+    <view class="grid-item" wx:for="{{images}}" wx:key="index" bindtap="onPreviewImage" bindlongpress="onLongPressImage" data-index="{{index}}" data-url="{{item}}">
+      <image class="grid-image" src="{{item}}" mode="aspectFill" lazy-load="{{true}}"></image>
+      <view class="select-badge" bindtap="onSelectImage" data-index="{{index}}" data-url="{{item}}" catchtap="onSelectImage"><text>选这张</text></view>
+    </view>
+  </view>
+  <view class="grid skeleton-grid" wx:if="{{loading}}">
+    <view class="grid-item" wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="*this"><view class="skeleton-image"></view></view>
+  </view>
+  <view class="footer-tip" wx:if="{{!loading}}"><text>长按图片可保存或设为封面</text></view>
+</view>

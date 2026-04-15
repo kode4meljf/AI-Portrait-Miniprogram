@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="mode-tabs">
+    <view class="tab-item {{mode === 'camera' ? 'active' : ''}}" bindtap="onModeChange" data-mode="camera">拍照</view>
+    <view class="tab-item {{mode === 'album' ? 'active' : ''}}" bindtap="onModeChange" data-mode="album">相册选择</view>
+  </view>
+
+  <view class="camera-wrapper" wx:if="{{mode === 'camera' && !previewUrl}}">
+    <camera class="camera-preview" device-position="front" flash="auto" binderror="onCameraError"></camera>
+    <view class="camera-controls">
+      <button class="capture-btn" bindtap="onTakePhoto"><image src="/assets/images/camera-icon.png" mode="aspectFit"></image></button>
+    </view>
+  </view>
+
+  <view class="album-wrapper" wx:if="{{mode === 'album' && !previewUrl}}">
+    <view class="album-placeholder" bindtap="onChooseFromAlbum">
+      <image src="/assets/images/album-placeholder.png" mode="aspectFit"></image>
+      <text>点击从相册选择照片</text>
+    </view>
+  </view>
+
+  <view class="preview-wrapper" wx:if="{{previewUrl}}">
+    <image class="preview-image" src="{{previewUrl}}" mode="aspectFill" bindtap="onPreviewImage"></image>
+    <view class="detect-badge" wx:if="{{faceDetectResult}}"><text class="badge success">人脸检测通过</text></view>
+    <view class="detect-badge" wx:if="{{qualityResult && qualityResult.success}}"><text class="badge success">质量合格</text></view>
+    <view class="preview-actions">
+      <button class="btn-reset" bindtap="resetImage">重新选择</button>
+      <button class="btn-generate" bindtap="onGenerate" disabled="{{processing}}">{{processing ? '处理中...' : '生成写真'}}</button>
+    </view>
+  </view>
+
+  <view class="loading-mask" wx:if="{{processing}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text>图片处理中...</text>
+    </view>
+  </view>
+</view>

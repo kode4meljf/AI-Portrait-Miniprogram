@@ -1,0 +1,19 @@
+<view class="modal-mask" wx:if="{{visible}}" bindtap="onMaskTap">
+  <view class="modal-container" catchtap="stopPropagation">
+    <view class="modal-header" wx:if="{{title}}">
+      <text class="modal-title">{{title}}</text>
+    </view>
+    <view class="modal-body">
+      <text class="modal-content">{{content}}</text>
+      <slot name="content"></slot>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn cancel" wx:if="{{showCancel}}" bindtap="onCancel">
+        {{cancelText}}
+      </view>
+      <view class="modal-btn confirm" bindtap="onConfirm">
+        {{confirmText}}
+      </view>
+    </view>
+  </view>
+</view>

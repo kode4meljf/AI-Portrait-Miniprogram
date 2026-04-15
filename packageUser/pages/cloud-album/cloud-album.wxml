@@ -1,0 +1,46 @@
+<view class="container">
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item {{filterType === 'all' ? 'active' : ''}}" bindtap="onFilterChange" data-type="all">全部</view>
+    <view class="filter-item {{filterType === 'year' ? 'active' : ''}}" bindtap="onFilterChange" data-type="year">
+      {{selectedYear ? selectedYear + '年' : '按年份'}}
+    </view>
+  </view>
+
+  <!-- 相册列表 -->
+  <view class="album-list" wx:if="{{filteredAlbums && filteredAlbums.length > 0}}">
+    <view class="album-item" wx:for="{{filteredAlbums}}" wx:key="id">
+      <view class="album-header">
+        <text class="album-date">{{item.createTime}}</text>
+        <view class="album-actions">
+          <text class="action" bindtap="onDownload" data-url="{{item.imageUrl}}">下载</text>
+        </view>
+      </view>
+      <view class="album-images">
+        <image 
+          class="album-thumb" 
+          src="{{item.imageUrl}}" 
+          mode="aspectFill"
+          bindtap="onPreviewImage"
+          data-url="{{item.imageUrl}}"
+          data-urls='{{[item.imageUrl]}}'
+        ></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && (!filteredAlbums || filteredAlbums.length === 0)}}">
+    <image src="/assets/images/empty-album.png"></image>
+    <text>暂无写真，快去生成一张吧</text>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+  <view class="no-more" wx:if="{{!hasMore && albums.length > 0}}">
+    <text>没有更多了</text>
+  </view>
+</view>

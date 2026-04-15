@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "写真云相册",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {}
+}

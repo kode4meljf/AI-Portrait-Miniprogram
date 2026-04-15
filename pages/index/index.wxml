@@ -1,0 +1,48 @@
+<!-- 首页入口页 -->
+<view class="container">
+  <!-- 顶部「立即拍摄」按钮 -->
+  <view class="shoot-btn-wrapper">
+    <button class="shoot-btn" bindtap="onStartShoot">
+      立即拍摄
+    </button>
+  </view>
+
+  <!-- 写真案例展示区 -->
+  <view class="case-section">
+    <view class="section-title">
+      <text class="title-text">案例展示</text>
+      <text class="title-desc">看看大家都怎么拍</text>
+    </view>
+    
+    <scroll-view 
+      class="case-scroll" 
+      scroll-x="{{true}}" 
+      show-scrollbar="{{false}}"
+      enhanced="{{true}}"
+    >
+      <view class="case-list">
+        <view 
+          wx:for="{{caseImages}}" 
+          wx:key="id" 
+          class="case-item"
+          bindtap="onPreviewImage"
+          data-url="{{item.url}}"
+          data-index="{{index}}"
+        >
+          <image 
+            class="case-image" 
+            src="{{item.url}}" 
+            mode="aspectFill"
+            lazy-load="{{true}}"
+          />
+          <view class="case-title">{{item.title}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 加载骨架屏 -->
+  <view class="skeleton" wx:if="{{loading}}">
+    <view class="skeleton-item" wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this"></view>
+  </view>
+</view>

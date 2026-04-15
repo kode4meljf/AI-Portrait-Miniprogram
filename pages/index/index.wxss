@@ -1,0 +1,123 @@
+/* 首页样式 */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
+  padding: 40rpx 32rpx 80rpx;
+  box-sizing: border-box;
+}
+
+/* 立即拍摄按钮 */
+.shoot-btn-wrapper {
+  padding: 60rpx 0 40rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.shoot-btn {
+  width: 440rpx;
+  height: 100rpx;
+  background: #ffffff;
+  border-radius: 60rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  line-height: 1;
+}
+
+.shoot-btn::after {
+  border: none;
+}
+
+/* 案例展示区 */
+.case-section {
+  margin-top: 40rpx;
+}
+
+.section-title {
+  margin-bottom: 32rpx;
+  text-align: center;
+}
+
+.title-text {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333333;
+  display: block;
+}
+
+.title-desc {
+  font-size: 26rpx;
+  color: #999999;
+  margin-top: 12rpx;
+  display: block;
+}
+
+/* 横向滚动 */
+.case-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.case-list {
+  display: inline-flex;
+  gap: 24rpx;
+  padding: 8rpx 0 16rpx;
+}
+
+.case-item {
+  display: inline-block;
+  width: 280rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.case-item:active {
+  transform: scale(0.98);
+}
+
+.case-image {
+  width: 280rpx;
+  height: 280rpx;
+  background: #f0f0f0;
+}
+
+.case-title {
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #666666;
+  text-align: center;
+}
+
+/* 骨架屏 */
+.skeleton {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+.skeleton-item {
+  width: 280rpx;
+  height: 280rpx;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 24rpx;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

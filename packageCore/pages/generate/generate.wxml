@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="animation-area">
+    <view class="skeleton-animation">
+      <view class="skeleton-body"></view>
+      <view class="skeleton-face"></view>
+    </view>
+    <view class="progress-bar"><view class="progress-fill" style="width: {{progress}}%;"></view></view>
+    <view class="progress-text">{{progress}}%</view>
+  </view>
+  <view class="status-info">
+    <text class="style-name">正在生成「{{styleName}}」风格</text>
+    <text class="estimate-time">预计等待 {{estimatedTime}} 秒</text>
+    <text class="tip">请耐心等待，生成后自动跳转</text>
+  </view>
+  <view class="actions">
+    <button class="cancel-btn" bindtap="onCancel">取消生成</button>
+    <button class="refresh-btn" bindtap="onRefresh">刷新状态</button>
+  </view>
+  <view class="error-tip" wx:if="{{errorMsg}}"><text>{{errorMsg}}</text></view>
+</view>

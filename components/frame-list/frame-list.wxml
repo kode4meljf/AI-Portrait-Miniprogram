@@ -1,0 +1,25 @@
+<scroll-view 
+  class="frame-scroll" 
+  scroll-x="{{true}}" 
+  show-scrollbar="{{false}}"
+  enhanced="{{true}}"
+>
+  <view class="frame-list">
+    <view 
+      class="frame-item {{selectedFrameId === item.id ? 'selected' : ''}}"
+      wx:for="{{frameList}}" 
+      wx:key="id"
+      bindtap="onSelectFrame"
+      data-id="{{item.id}}"
+    >
+      <image class="frame-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+      <view class="frame-info">
+        <text class="frame-name">{{item.name}}</text>
+        <text class="frame-price">¥{{item.price}}</text>
+      </view>
+      <view class="frame-detail" catchtap="onShowDetail" data-frame="{{item}}">
+        <text>详情</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>

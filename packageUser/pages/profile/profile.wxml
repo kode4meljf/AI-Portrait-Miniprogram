@@ -3,7 +3,10 @@
   <!-- 门店信息头部 -->
   <view class="store-header">
     <view class="store-top">
-      <view class="store-avatar">🏪</view>
+      <view class="store-avatar" bindtap="onAvatarTap">
+        <image class="avatar-img" src="{{storeInfo.avatar || '/assets/images/default-store.png'}}" mode="aspectFill"></image>
+        <view class="avatar-edit-hint">✏️</view>
+      </view>
       <view class="store-info">
         <view class="store-name">{{storeInfo.name}}</view>
         <view class="store-contact">
@@ -130,4 +133,31 @@
   </view>
 
   <view style="height: 20px"></view>
+</view>
+
+<!-- 头像更换弹窗 -->
+<view class="avatar-action-sheet" wx:if="{{showAvatarSheet}}" catchtouchmove="preventMove">
+  <!-- 遮罩层 -->
+  <view class="avatar-overlay" bindtap="onCloseAvatarSheet"></view>
+  
+  <!-- 底部弹窗 -->
+  <view class="avatar-sheet-content">
+    <!-- 操作选项 -->
+    <view class="avatar-action-group">
+      <button class="avatar-action-btn wechat-btn" bindtap="onUseWechatAvatar">
+        <text class="btn-text">用微信头像</text>
+        <image class="wechat-avatar-thumb" src="{{wechatAvatarUrl}}" mode="aspectFill"></image>
+      </button>
+      <button class="avatar-action-btn" bindtap="onTakePhoto">拍照</button>
+      <button class="avatar-action-btn" bindtap="onChooseFromAlbum">从手机相册选择</button>
+    </view>
+    
+    <!-- 间隔区域 -->
+    <view class="avatar-spacer"></view>
+    
+    <!-- 取消按钮 -->
+    <view class="avatar-action-group cancel-group">
+      <button class="avatar-action-btn" bindtap="onCloseAvatarSheet">取消</button>
+    </view>
+  </view>
 </view>

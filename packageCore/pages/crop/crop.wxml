@@ -1,0 +1,53 @@
+<!-- 图片裁剪 -->
+<view class="crop-page">
+  <!-- 裁剪区域 -->
+  <view class="crop-area">
+    <view class="crop-container">
+      <image 
+        class="crop-image" 
+        src="{{imageSrc}}" 
+        mode="aspectFit"
+        style="transform: rotate({{rotation}}deg);"
+      />
+      <!-- 裁剪框 -->
+      <view class="crop-overlay">
+        <view class="crop-grid">
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <!-- 工具按钮 -->
+    <view class="tool-bar">
+      <button class="tool-btn rotate-btn" bindtap="onRotate">
+        <!-- 旋转图标 -->
+        <svg viewBox="0 0 32 32" width="22" height="22">
+          <rect x="4" y="8" width="18" height="18" rx="3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M28 12 C28 4, 20 2, 12 4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M14 2 L12 4 L14 6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="tool-btn reset-btn {{hasChange ? 'active' : ''}}" bindtap="onReset">还原</button>
+    </view>
+
+    <!-- 分割线 -->
+    <view class="divider"></view>
+
+    <!-- 取消/完成 -->
+    <view class="confirm-bar">
+      <button class="cancel-btn" bindtap="onCancel">取消</button>
+      <button class="done-btn" bindtap="onDone">完成</button>
+    </view>
+  </view>
+</view>

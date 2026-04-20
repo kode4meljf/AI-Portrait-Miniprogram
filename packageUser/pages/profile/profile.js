@@ -3,6 +3,9 @@ const app = getApp();
 
 Page({
   data: {
+    // 头像弹窗
+    showAvatarSheet: false,
+    wechatAvatarUrl: '/assets/images/default-avatar.png',
     // 门店信息
     storeInfo: {
       name: '',
@@ -210,5 +213,90 @@ Page({
   // 查看打卡详情
   onViewCheckinDetail() {
     wx.showToast({ title: '打卡详情开发中', icon: 'none' });
+  },
+
+  // ========== 头像弹窗相关 ==========
+  
+  // 点击头像
+  onAvatarTap() {
+    this.setData({ showAvatarSheet: true });
+  },
+
+  // 关闭头像弹窗
+  onCloseAvatarSheet() {
+    this.setData({ showAvatarSheet: false });
+  },
+
+  // 阻止滚动穿透
+  preventMove() {},
+
+  // 使用微信头像
+  onUseWechatAvatar() {
+    const that = this;
+    wx.getUserProfile({
+      desc: '用于设置门店头像',
+      success: (res) => {
+        const avatarUrl = res.userInfo.avatarUrl;
+        that.setData({
+          'storeInfo.avatar': avatarUrl,
+          wechatAvatarUrl: avatarUrl,
+          showAvatarSheet: false
+        });
+        // TODO: 上传头像到服务器
+        wx.showToast({ title: '头像已更新', icon: 'success' });
+      },
+      fail: () => {
+        wx.showToast({ title: '获取头像失败', icon: 'none' });
+      }
+    });
+  },
+
+  // 拍照
+  onTakePhoto() {
+    const that = this;
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['camera'],
+      success: (res) => {
+        const tempFilePath = res.tempFiles[0].tempFilePath;
+        that.uploadAvatar(tempFilePath);
+      },
+      complete: () => {
+        that.setData({ showAvatarSheet: false });
+      }
+    });
+  },
+
+  // 从相册选择
+  onChooseFromAlbum() {
+    const that = this;
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album'],
+      success: (res) => {
+        const tempFilePath = res.tempFiles[0].tempFilePath;
+        that.uploadAvatar(tempFilePath);
+      },
+      complete: () => {
+        that.setData({ showAvatarSheet: false });
+      }
+    });
+  },
+
+  // 上传头像
+  uploadAvatar(filePath) {
+    const that = this;
+    wx.showLoading({ title: '上传中...' });
+    
+    // TODO: 上传到云存储
+    setTimeout(() => {
+      wx.hideLoading();
+      that.setData({
+        'storeInfo.avatar': filePath
+      });
+      wx.showToast({ title: '头像已更新', icon: 'success' });
+    }, 1000);
   }
 });

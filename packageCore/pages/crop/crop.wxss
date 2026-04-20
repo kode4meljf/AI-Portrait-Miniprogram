@@ -1,0 +1,144 @@
+/* 图片裁剪样式 */
+.crop-page {
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 裁剪区域 */
+.crop-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.crop-container {
+  position: relative;
+  width: 100%;
+  max-width: 600rpx;
+  aspect-ratio: 1;
+  background: #333;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.crop-image {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* 裁剪框 */
+.crop-overlay {
+  position: absolute;
+  inset: 0;
+  border: 2rpx solid rgba(255, 255, 255, 0.8);
+  border-radius: 16rpx;
+  pointer-events: none;
+}
+
+.crop-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid-line {
+  border-right: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.grid-line:nth-child(3n) {
+  border-right: none;
+}
+
+.grid-line:nth-child(n+4):nth-child(-n+6) {
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+/* 底部操作栏 */
+.action-bar {
+  background: #000;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 上层：工具按钮 */
+.tool-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 300;
+  padding: 16rpx 0;
+}
+
+.tool-btn:active {
+  opacity: 0.7;
+}
+
+.rotate-btn svg {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.reset-btn {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.reset-btn.active {
+  color: #fff;
+}
+
+/* 分割线 */
+.divider {
+  height: 1rpx;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* 下层：取消/完成 */
+.confirm-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 300;
+  padding: 16rpx 0;
+}
+
+.cancel-btn:active {
+  opacity: 0.7;
+}
+
+.done-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 300;
+  padding: 16rpx 0;
+}
+
+.done-btn:active {
+  opacity: 0.7;
+}

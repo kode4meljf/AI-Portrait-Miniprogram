@@ -1,0 +1,67 @@
+<!-- 编辑门店信息 -->
+<view class="edit-store-page">
+  <!-- 顶部导航 -->
+  <view class="navbar">
+    <view class="nav-back" bindtap="onBack">
+      <text class="back-icon">←</text>
+    </view>
+    <view class="nav-title">编辑门店信息</view>
+    <view class="nav-save" bindtap="onSave">保存</view>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <view class="form-group">
+      <label class="form-label">门店名称</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入门店名称" 
+        value="{{formData.name}}"
+        bindinput="onInputChange"
+        data-field="name"
+        maxlength="20"
+      />
+    </view>
+
+    <view class="form-group">
+      <label class="form-label">联系人</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入联系人姓名" 
+        value="{{formData.contact}}"
+        bindinput="onInputChange"
+        data-field="contact"
+      />
+    </view>
+
+    <view class="form-group">
+      <label class="form-label">联系电话</label>
+      <input 
+        class="form-input" 
+        type="tel"
+        placeholder="请输入联系电话" 
+        value="{{formData.phone}}"
+        bindinput="onInputChange"
+        data-field="phone"
+      />
+      <text class="form-hint">用于客户联系，建议填写门店座机或负责人手机</text>
+    </view>
+
+    <view class="form-group">
+      <label class="form-label">门店地址</label>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请输入门店详细地址"
+        value="{{formData.address}}"
+        bindinput="onInputChange"
+        data-field="address"
+        maxlength="100"
+      />
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-action">
+    <button class="btn-save" bindtap="onSubmit">保存修改</button>
+  </view>
+</view>

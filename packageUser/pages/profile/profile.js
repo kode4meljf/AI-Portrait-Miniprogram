@@ -172,7 +172,9 @@ Page({
 
   // 编辑门店信息
   onEditStore() {
-    wx.showToast({ title: '编辑功能开发中', icon: 'none' });
+    wx.navigateTo({
+      url: '/packageUser/pages/edit-store/edit-store'
+    });
   },
 
   // 充值套餐
@@ -286,17 +288,40 @@ Page({
   },
 
   // 上传头像
-  uploadAvatar(filePath) {
+  async uploadAvatar(filePath) {
     const that = this;
-    wx.showLoading({ title: '上传中...' });
+    wx.showLoading({ title: '上传中...', mask: true });
     
-    // TODO: 上传到云存储
-    setTimeout(() => {
-      wx.hideLoading();
-      that.setData({
-        'storeInfo.avatar': filePath
+    try {
+      // 上传到云存储
+      const cloudPath = `avatars/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.jpg`;
+      const uploadResult = await wx.cloud.uploadFile({
+        cloudPath: cloudPath,
+        filePath: filePath
       });
-      wx.showToast({ title: '头像已更新', icon: 'success' });
-    }, 1000);
+      
+      wx.hideLoading();
+      
+      if (uploadResult.fileID) {
+        // 更新本地数据
+        that.setData({
+          'storeInfo.avatar': uploadResult.fileID
+        });
+        
+        // TODO: 调用云函数更新数据库中的头像字段
+        // await wx.cloud.callFunction({
+        //   name: 'updateStoreInfo',
+        //   data: { avatar: uploadResult.fileID }
+        // });
+        
+        wx.showToast({ title: '头像已更新', icon: 'success' });
+      } else {
+        throw new Error('上传失败');
+      }
+    } catch (err) {
+      wx.hideLoading();
+      console.error('上传头像失败:', err);
+      wx.showToast({ title: '上传失败，请重试', icon: 'none' });
+    }
   }
 });

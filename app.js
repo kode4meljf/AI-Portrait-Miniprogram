@@ -13,6 +13,7 @@ App({
    * 全局数据
    */
   globalData: {
+    IS_DEV: true,             // 开发模式：true 用 Mock 数据，false 调用云函数
     userInfo: null,           // 用户信息
     token: null,              // 登录令牌
     isLoggedIn: false,        // 登录状态

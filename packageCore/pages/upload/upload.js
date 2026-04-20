@@ -53,7 +53,10 @@ Page({
       quality: "high",
       success: (res) => {
         wx.hideLoading();
-        this.processImage(res.tempImagePath);
+        // 跳转到裁剪页
+        wx.navigateTo({
+          url: `/packageCore/pages/crop/crop?src=${encodeURIComponent(res.tempImagePath)}`
+        });
       },
       fail: (err) => {
         wx.hideLoading();
@@ -69,10 +72,31 @@ Page({
       sizeType: ["original", "compressed"],
       sourceType: ["album"],
       success: (res) => {
-        this.processImage(res.tempFilePaths[0]);
+        // 跳转到裁剪页
+        wx.navigateTo({
+          url: `/packageCore/pages/crop/crop?src=${encodeURIComponent(res.tempFilePaths[0])}`
+        });
       },
       fail: (err) => console.error("选择图片失败:", err),
     });
+  },
+
+  // 裁剪完成回调（由裁剪页调用）
+  onCropComplete(data) {
+    const { src, rotation } = data;
+    // 如果有旋转角度，需要处理
+    if (rotation && rotation !== 0) {
+      this.processImageWithRotation(src, rotation);
+    } else {
+      this.processImage(src);
+    }
+  },
+
+  // 带旋转的图片处理
+  async processImageWithRotation(imagePath, rotation) {
+    // TODO: 使用 canvas 旋转图片
+    // 简化处理：直接使用原图片
+    this.processImage(imagePath);
   },
 
   async processImage(imagePath) {

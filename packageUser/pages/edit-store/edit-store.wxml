@@ -1,12 +1,12 @@
 <!-- 编辑门店信息 -->
 <view class="edit-store-page">
   <!-- 顶部导航 -->
-  <view class="navbar">
+  <view class="navbar" style="padding-top: {{navBarTop}}px;">
     <view class="nav-back" bindtap="onBack">
       <text class="back-icon">←</text>
     </view>
     <view class="nav-title">编辑门店信息</view>
-    <view class="nav-save" bindtap="onSave">保存</view>
+    <view class="nav-save {{hasChange ? '' : 'disabled'}}" bindtap="onSave">保存</view>
   </view>
 
   <!-- 表单区域 -->

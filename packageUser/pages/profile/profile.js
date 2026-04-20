@@ -221,11 +221,13 @@ Page({
   
   // 点击头像
   onAvatarTap() {
+    wx.hideTabBar({ animation: true });
     this.setData({ showAvatarSheet: true });
   },
 
   // 关闭头像弹窗
   onCloseAvatarSheet() {
+    wx.showTabBar({ animation: true });
     this.setData({ showAvatarSheet: false });
   },
 
@@ -244,7 +246,7 @@ Page({
           wechatAvatarUrl: avatarUrl,
           showAvatarSheet: false
         });
-        // TODO: 上传头像到服务器
+        wx.showTabBar({ animation: true });
         wx.showToast({ title: '头像已更新', icon: 'success' });
       },
       fail: () => {
@@ -262,9 +264,10 @@ Page({
       sourceType: ['camera'],
       success: (res) => {
         const tempFilePath = res.tempFiles[0].tempFilePath;
-        that.uploadAvatar(tempFilePath);
+        that.goToCrop(tempFilePath);
       },
       complete: () => {
+        wx.showTabBar({ animation: true });
         that.setData({ showAvatarSheet: false });
       }
     });
@@ -279,12 +282,28 @@ Page({
       sourceType: ['album'],
       success: (res) => {
         const tempFilePath = res.tempFiles[0].tempFilePath;
-        that.uploadAvatar(tempFilePath);
+        that.goToCrop(tempFilePath);
       },
       complete: () => {
+        wx.showTabBar({ animation: true });
         that.setData({ showAvatarSheet: false });
       }
     });
+  },
+
+  // 跳转到裁剪页面
+  goToCrop(filePath) {
+    const encoded = encodeURIComponent(filePath);
+    wx.navigateTo({
+      url: `/packageCore/pages/crop/crop?src=${encoded}&from=avatar`
+    });
+  },
+
+  // 裁剪完成后回调（由 crop 页面调用）
+  onCropComplete(result) {
+    if (result.src) {
+      this.uploadAvatar(result.src);
+    }
   },
 
   // 上传头像
@@ -303,16 +322,16 @@ Page({
       wx.hideLoading();
       
       if (uploadResult.fileID) {
+        // 调用云函数更新数据库中的头像字段
+        await wx.cloud.callFunction({
+          name: 'updateStoreInfo',
+          data: { avatar: uploadResult.fileID }
+        });
+        
         // 更新本地数据
         that.setData({
           'storeInfo.avatar': uploadResult.fileID
         });
-        
-        // TODO: 调用云函数更新数据库中的头像字段
-        // await wx.cloud.callFunction({
-        //   name: 'updateStoreInfo',
-        //   data: { avatar: uploadResult.fileID }
-        // });
         
         wx.showToast({ title: '头像已更新', icon: 'success' });
       } else {

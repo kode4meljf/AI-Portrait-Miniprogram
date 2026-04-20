@@ -8,12 +8,39 @@ Page({
       address: ''
     },
     originalData: null,
-    hasChange: false
+    hasChange: false,
+    navBarTop: 0  // 导航栏安全距离
   },
 
   onLoad(options) {
+    // 计算导航栏安全距离
+    this.calcNavBarSafeArea();
     // 获取当前门店信息
     this.loadStoreInfo();
+  },
+
+  // 计算导航栏安全距离（避开小程序胶囊按钮）
+  calcNavBarSafeArea() {
+    try {
+      const systemInfo = wx.getSystemInfoSync();
+      const menuButton = wx.getMenuButtonBoundingClientRect();
+      
+      // 状态栏高度 + 胶囊高度 + (胶囊距状态栏的间距 * 2)
+      // 胶囊距状态栏的间距 = menuButton.top - statusBarHeight
+      const statusBarHeight = systemInfo.statusBarHeight;
+      const menuButtonHeight = menuButton.height;
+      const menuButtonTop = menuButton.top;
+      const gap = menuButtonTop - statusBarHeight;
+      
+      // 导航栏顶部安全距离 = 状态栏高度 + 间距
+      const navBarTop = statusBarHeight + gap;
+      
+      this.setData({ navBarTop });
+    } catch (e) {
+      // 兜底：默认使用状态栏高度
+      const statusBarHeight = wx.getSystemInfoSync().statusBarHeight || 20;
+      this.setData({ navBarTop: statusBarHeight });
+    }
   },
 
   // 加载门店信息

@@ -5,7 +5,6 @@
     <view class="store-top">
       <view class="store-avatar" bindtap="onAvatarTap">
         <image class="avatar-img" src="{{storeInfo.avatar || '/assets/images/default-store.png'}}" mode="aspectFill"></image>
-        <view class="avatar-edit-hint">✏️</view>
       </view>
       <view class="store-info">
         <view class="store-name">{{storeInfo.name}}</view>

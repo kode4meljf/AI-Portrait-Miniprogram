@@ -1,0 +1,133 @@
+<!-- 门店中心页 -->
+<view class="profile-page">
+  <!-- 门店信息头部 -->
+  <view class="store-header">
+    <view class="store-top">
+      <view class="store-avatar">🏪</view>
+      <view class="store-info">
+        <view class="store-name">{{storeInfo.name}}</view>
+        <view class="store-contact">
+          <text>联系人：{{storeInfo.contact}}</text>
+          <text class="dot"></text>
+          <text>{{storeInfo.phone}}</text>
+        </view>
+      </view>
+      <view class="edit-btn" bindtap="onEditStore">编辑</view>
+    </view>
+    <view class="store-address">
+      <text class="addr-icon">📍</text>
+      <text>{{storeInfo.address}}</text>
+    </view>
+  </view>
+
+  <!-- 会员余额卡 -->
+  <view class="balance-card">
+    <view class="balance-top">
+      <view class="balance-left">
+        <view class="label">门店可用余额（人次）</view>
+        <view class="amount">
+          <text class="amt-label">剩余</text>
+          <text class="amount-num">{{memberData.remainingUses}}</text>
+          <text class="amount-unit">人次</text>
+        </view>
+      </view>
+      <view class="level-badge">
+        <text class="crown">👑</text>
+        <text>{{memberData.levelName}}</text>
+      </view>
+    </view>
+    <view class="quota-row">
+      <view class="quota-item">
+        <view class="q-label">本月已用</view>
+        <view class="q-val">{{memberData.monthlyUsed}} <text class="q-unit">/ {{memberData.monthlyTotal}}人次</text></view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{memberData.monthlyPercent}}%"></view>
+        </view>
+      </view>
+      <view class="quota-item">
+        <view class="q-label">套餐到期</view>
+        <view class="q-val">{{memberData.expireDays}} <text class="q-unit">天后</text></view>
+        <view class="progress-bar">
+          <view class="progress-fill expire" style="width: {{memberData.expirePercent}}%"></view>
+        </view>
+      </view>
+    </view>
+    <view class="recharge-btn" bindtap="onRecharge">⚡ 充值套餐 · 升级会员</view>
+  </view>
+
+  <!-- 数据看板：订单汇总 -->
+  <view class="section-header">
+    <view class="s-title">订单数据看板</view>
+    <view class="s-more" bindtap="onViewOrders">本月 ›</view>
+  </view>
+
+  <view class="order-summary">
+    <view class="summary-amount">
+      <text class="amt-label">累计下单金额</text>
+      <text class="amt-val">¥{{orderStats.totalAmount}}</text>
+      <text class="amt-sub {{orderStats.monthPct > 0 ? 'up' : 'down'}}">
+        {{orderStats.monthPct > 0 ? '↑' : '↓'}} 较上月 {{orderStats.monthPct > 0 ? '+' : ''}}{{orderStats.monthPct}}%
+      </text>
+    </view>
+    <view class="category-grid">
+      <view class="cat-item" bindtap="onCategoryTap" data-type="portrait_frame">
+        <view class="cat-icon blue">🖼️</view>
+        <view class="cat-info">
+          <view class="cat-num">{{orderStats.portraitFrame}}</view>
+          <view class="cat-name">写真摆台</view>
+        </view>
+      </view>
+      <view class="cat-item" bindtap="onCategoryTap" data-type="album">
+        <view class="cat-icon purple">📔</view>
+        <view class="cat-info">
+          <view class="cat-num">{{orderStats.album}}</view>
+          <view class="cat-name">写真集</view>
+        </view>
+      </view>
+      <view class="cat-item" bindtap="onCategoryTap" data-type="travel_video">
+        <view class="cat-icon orange">🎬</view>
+        <view class="cat-info">
+          <view class="cat-num">{{orderStats.travelVideo}}</view>
+          <view class="cat-name">旅拍视频</view>
+        </view>
+      </view>
+      <view class="cat-item" bindtap="onCategoryTap" data-type="memoir">
+        <view class="cat-icon green">📖</view>
+        <view class="cat-info">
+          <view class="cat-num">{{orderStats.memoir}}</view>
+          <view class="cat-name">回忆录</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡活跃 -->
+  <view class="section-header">
+    <view class="s-title">客户打卡活跃</view>
+    <view class="s-more" bindtap="onViewCheckinDetail">详情 ›</view>
+  </view>
+
+  <view class="checkin-card">
+    <view class="checkin-row">
+      <view class="checkin-item yesterday" bindtap="onViewUnchecked">
+        <view class="ci-label">昨日打卡人数</view>
+        <view class="ci-num">{{checkinStats.yesterday}}</view>
+        <view class="ci-sub">📋 点击查看未打卡名单</view>
+      </view>
+      <view class="checkin-item today">
+        <view class="ci-label">今日打卡人数</view>
+        <view class="ci-num">{{checkinStats.today}}</view>
+        <view class="ci-sub">🔄 实时更新中</view>
+      </view>
+    </view>
+    <view class="uncheckin-tip" bindtap="onViewUnchecked">
+      <view class="tip-left">
+        <text class="warn-icon">⚠️</text>
+        <text>今日 <text class="strong">{{checkinStats.uncheckedCount}}</text>人 尚未打卡</text>
+      </view>
+      <view class="tip-right">查看名单 ›</view>
+    </view>
+  </view>
+
+  <view style="height: 20px"></view>
+</view>

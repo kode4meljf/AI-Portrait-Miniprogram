@@ -25,6 +25,15 @@ App({
    * 小程序启动时执行
    */
   onLaunch(options) {
+    // 初始化云开发环境
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: 'ai-photo-0g22lzk94d0b6846', // TODO: 替换为你的云开发环境ID
+        traceUser: true
+      });
+      this.cloud = wx.cloud;
+    }
+    
     // 检查登录状态
     this.checkLoginStatus();
     

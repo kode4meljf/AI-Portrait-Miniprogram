@@ -66,6 +66,13 @@ Page({
    * 加载案例写真图片
    */
   async loadCaseImages() {
+    const IS_DEV = true; // 开发模式，上线前改为 false
+
+    if (IS_DEV) {
+      this.setData({ caseImages: this.getDefaultCaseImages() });
+      return;
+    }
+
     try {
       this.setData({ loading: true });
       
@@ -77,14 +84,12 @@ Page({
           caseImages: result.data.list,
         });
       } else {
-        // 使用默认案例图片（开发测试用）
         this.setData({
           caseImages: this.getDefaultCaseImages(),
         });
       }
     } catch (err) {
       console.error("加载案例图片失败:", err);
-      // 失败时使用默认图片
       this.setData({
         caseImages: this.getDefaultCaseImages(),
       });

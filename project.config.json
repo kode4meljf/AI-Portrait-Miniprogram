@@ -1,7 +1,11 @@
 {
   "description": "AI写真小程序项目配置",
+  "cloudfunctionRoot": "cloudfunctions/",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "node_modules" },
+      { "type": "folder", "value": "miniprogram_npm" }
+    ],
     "include": []
   },
   "setting": {
@@ -49,7 +53,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "3.15.2",
-  "appid": "wxdd68d38003d3d482",
+  "appid": "wxa17b6104ffe25221",
   "projectname": "ai-portrait-miniprogram",
   "condition": {},
   "editorSetting": {
